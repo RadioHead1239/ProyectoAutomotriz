@@ -1,0 +1,13 @@
+@model BotonModulo
+@{
+    var clases = "btn" + (Model.Primario ? " btn-primario" : "") + (Model.Pequeno ? " btn-sm" : "");
+    var icono = Model.Icono is null ? null : Html.Icono(Model.Icono, 18);
+}
+@if (Menu.EstaConstruido(Model.Controller))
+{
+    <a class="@clases" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-id="@Model.Id">@icono@Model.Texto</a>
+}
+else
+{
+    <span class="@clases btn-deshabilitado" aria-disabled="true" title="Próximamente: el módulo aún no está disponible">@icono@Model.Texto</span>
+}

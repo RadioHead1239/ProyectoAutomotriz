@@ -1,0 +1,9 @@
+@model KpiItem
+<div class="kpi">
+    <div class="kpi-cabecera">
+        <span class="kpi-etiqueta">@Model.Etiqueta</span>
+        <span class="icono-caja @Model.Tono">@Html.Icono(Model.Icono, 18)</span>
+    </div>
+    <span class="kpi-valor">@Model.Valor</span>
+    <span class="kpi-nota">@Model.Nota</span>
+</div>

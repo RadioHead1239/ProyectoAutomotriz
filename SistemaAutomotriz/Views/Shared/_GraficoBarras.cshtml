@@ -1,0 +1,25 @@
+@model IEnumerable<BarraItem>
+@{
+    var items = Model.ToList();
+    var maximo = items.Count == 0 ? 0 : items.Max(i => i.Valor);
+}
+@if (maximo == 0)
+{
+    <partial name="_SinDatos" model="@("Todavía no hay datos para mostrar.")" />
+}
+else
+{
+    <div class="barras">
+        @foreach (var item in items)
+        {
+            var ancho = item.Valor * 100 / maximo;
+            <div class="barra-fila">
+                <span class="barra-etiqueta" title="@item.Etiqueta">@item.Etiqueta</span>
+                <div class="barra-pista" role="img" aria-label="@item.Etiqueta: @item.Valor">
+                    <div class="barra-relleno @item.ClaseColor" style="width:@(ancho)%"></div>
+                </div>
+                <span class="barra-valor">@item.Valor</span>
+            </div>
+        }
+    </div>
+}

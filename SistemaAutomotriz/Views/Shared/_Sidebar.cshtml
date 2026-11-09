@@ -1,0 +1,64 @@
+@{
+    var controllerActual = ViewContext.RouteData.Values["controller"]?.ToString();
+    var actionActual = ViewContext.RouteData.Values["action"]?.ToString();
+    string? seccionActual = null;
+}
+<aside class="sidebar">
+    <div class="marca">
+        <div class="marca-logo">
+            <img src="~/img/logo.webp" />
+        </div>
+    </div>
+
+    <nav class="nav" aria-label="Principal">
+        @foreach (var item in Menu.ParaUsuario(User))
+        {
+            if (item.Seccion is not null && item.Seccion != seccionActual)
+            {
+                seccionActual = item.Seccion;
+                <div class="nav-seccion">@item.Seccion</div>
+            }
+            var activo = string.Equals(item.Controller, controllerActual, StringComparison.OrdinalIgnoreCase);
+            if (item.Construido)
+            {
+                <a asp-controller="@item.Controller" asp-action="@item.Action"
+                   class="nav-link @(activo ? "activo" : "")" aria-current="@(activo ? "page" : null)">
+                    @Html.Icono(item.Icono)@item.Texto
+                </a>
+            }
+            else
+            {
+                <span class="nav-link nav-pronto" aria-disabled="true" title="Próximamente">
+                    @Html.Icono(item.Icono)@item.Texto
+                </span>
+            }
+        }
+    </nav>
+
+    <div class="sidebar-espacio"></div>
+
+    <div class="sidebar-pie">
+        <details class="usuario-menu">
+            <summary class="usuario-menu-boton">
+                @Html.Icono("usuario")
+                <span class="sidebar-usuario">
+                    <span class="sidebar-usuario-nombre">@User.Identity?.Name</span>
+                    <span class="sidebar-usuario-rol">@User.ObtenerRolTexto()</span>
+                </span>
+                <span class="usuario-menu-chevron">@Html.Icono("chevron", 18)</span>
+            </summary>
+            <div class="usuario-menu-panel">
+                <div class="usuario-menu-info">
+                    @Html.Icono("sucursal", 18)
+                    <span class="marca-texto">
+                        <span class="marca-nombre">Taller Mecánico</span>
+                        <span class="marca-sub">@User.ObtenerSucursalNombre()</span>
+                    </span>
+                </div>
+                <form asp-controller="Cuenta" asp-action="Logout" method="post">
+                    <button type="submit" class="nav-link">@Html.Icono("salir")Cerrar sesión</button>
+                </form>
+            </div>
+        </details>
+    </div>
+</aside>

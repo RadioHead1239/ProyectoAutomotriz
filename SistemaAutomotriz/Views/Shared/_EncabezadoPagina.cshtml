@@ -1,0 +1,14 @@
+@model EncabezadoPaginaViewModel
+<header class="page-header">
+    <div class="page-header-textos">
+        <h1 class="page-titulo">@Model.Titulo</h1>
+        @if (!string.IsNullOrEmpty(Model.Subtitulo))
+        {
+            <p class="page-subtitulo">@Model.Subtitulo</p>
+        }
+    </div>
+    @if (Model.Acciones is not null)
+    {
+        <div class="page-acciones">@Model.Acciones(null)</div>
+    }
+</header>
