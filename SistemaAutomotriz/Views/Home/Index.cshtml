@@ -1,0 +1,34 @@
+﻿@model PanelViewModel
+@{
+    ViewData["Title"] = "Panel";
+}
+
+@{
+    Func<object?, Microsoft.AspNetCore.Html.IHtmlContent> acciones =
+        @<text>
+            @if (Model.PuedeCambiarSucursal)
+            {
+                <form method="get" asp-action="Index" class="selector-sede">
+                    <label for="sucursalId" class="sr-only">Sede</label>
+                    <select id="sucursalId" name="sucursalId" class="select" asp-items="Model.Sucursales" data-autoenviar></select>
+                    <noscript><button type="submit" class="btn">Ver</button></noscript>
+                </form>
+            }
+            <partial name="_BotonModulo" model="BotonTransferencia" />
+            <partial name="_BotonModulo" model="BotonNuevaOrden" />
+        </text>;
+    var encabezado = new EncabezadoPaginaViewModel($"{Model.Saludo}, {Model.PrimerNombre}", $"{Model.SucursalNombre} · {Model.FechaTexto}", acciones);
+}
+@functions {
+    static readonly BotonModulo BotonTransferencia = new("Solicitar transferencia", "Transferencias", "Nueva", Pequeno: false);
+    static readonly BotonModulo BotonNuevaOrden = new("Nueva orden", "Ordenes", "Nueva", Primario: true, Icono: "mas", Pequeno: false);
+}
+
+<partial name="_EncabezadoPagina" model="encabezado" />
+
+<div class="grid-kpi">
+    @foreach (var kpi in Model.Kpis)
+    {
+        <partial name="_Kpi" model="kpi" />
+    }
+</div>

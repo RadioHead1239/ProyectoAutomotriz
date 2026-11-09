@@ -1,0 +1,66 @@
+@model RegistroViewModel
+@{
+    Layout = "_LayoutAuth";
+    ViewData["Title"] = "Crear cuenta";
+    ViewData["Subtitulo"] = "Completa tus datos para acceder al sistema.";
+}
+
+<form asp-action="Registro" method="post" class="form" novalidate>
+    <div asp-validation-summary="ModelOnly" class="alerta alerta-error" role="alert"></div>
+
+    <div class="campo">
+        <label asp-for="Nombre" class="etiqueta"></label>
+        <input asp-for="Nombre" class="input" placeholder="Nombre y apellidos" autocomplete="name" autofocus />
+        <span asp-validation-for="Nombre"></span>
+    </div>
+
+    <div class="campo">
+        <label asp-for="Correo" class="etiqueta"></label>
+        <input asp-for="Correo" class="input" type="email" placeholder="nombre@empresa.com" autocomplete="email" />
+        <span asp-validation-for="Correo"></span>
+    </div>
+
+    <div class="campo">
+        <label asp-for="Clave" class="etiqueta"></label>
+        <div class="input-clave">
+            <input asp-for="Clave" class="input" placeholder="Mínimo 8 caracteres" autocomplete="new-password" />
+            <button type="button" class="btn-ver-clave" data-ver-clave aria-label="Mostrar contraseña">@Html.Icono("ojo", 18)</button>
+        </div>
+        <span class="ayuda">Mínimo 8 caracteres, con mayúscula, minúscula y número.</span>
+        <span asp-validation-for="Clave"></span>
+    </div>
+
+    <div class="campo">
+        <label asp-for="ConfirmarClave" class="etiqueta"></label>
+        <div class="input-clave">
+            <input asp-for="ConfirmarClave" class="input" placeholder="Repite tu contraseña" autocomplete="new-password" />
+            <button type="button" class="btn-ver-clave" data-ver-clave aria-label="Mostrar contraseña">@Html.Icono("ojo", 18)</button>
+        </div>
+        <span asp-validation-for="ConfirmarClave"></span>
+    </div>
+
+    <div class="form-fila">
+        <div class="campo">
+            <label asp-for="SucursalId" class="etiqueta"></label>
+            <select asp-for="SucursalId" asp-items="Model.Sucursales" class="select">
+                <option value="">Selecciona…</option>
+            </select>
+            <span asp-validation-for="SucursalId"></span>
+        </div>
+        <div class="campo">
+            <label asp-for="Rol" class="etiqueta"></label>
+            <select asp-for="Rol" asp-items="Model.Roles" class="select">
+                <option value="">Selecciona…</option>
+            </select>
+            <span asp-validation-for="Rol"></span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primario btn-bloque">Crear cuenta</button>
+</form>
+
+<p class="auth-tarjeta-pie">¿Ya tienes cuenta? <a asp-action="Login">Inicia sesión</a></p>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,40 @@
+@model LoginViewModel
+@{
+    Layout = "_LayoutAuth";
+    ViewData["Title"] = "Iniciar sesión";
+    ViewData["Subtitulo"] = "Ingresa con tu correo y contraseña.";
+}
+
+<form asp-action="Login" method="post" class="form" novalidate>
+    <input type="hidden" asp-for="ReturnUrl" />
+
+    <div asp-validation-summary="ModelOnly" class="alerta alerta-error" role="alert"></div>
+
+    <div class="campo">
+        <label asp-for="Correo" class="etiqueta"></label>
+        <input asp-for="Correo" class="input" type="email" placeholder="nombre@empresa.com" autocomplete="username" autofocus />
+        <span asp-validation-for="Correo"></span>
+    </div>
+
+    <div class="campo">
+        <label asp-for="Clave" class="etiqueta"></label>
+        <div class="input-clave">
+            <input asp-for="Clave" class="input" placeholder="Tu contraseña" autocomplete="current-password" />
+            <button type="button" class="btn-ver-clave" data-ver-clave aria-label="Mostrar contraseña">@Html.Icono("ojo", 18)</button>
+        </div>
+        <span asp-validation-for="Clave"></span>
+    </div>
+
+    <div class="check">
+        <input asp-for="Recordarme" />
+        <label asp-for="Recordarme"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primario btn-bloque">Iniciar sesión</button>
+</form>
+
+<p class="auth-tarjeta-pie">¿No tienes cuenta? <a asp-action="Registro">Regístrate</a></p>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

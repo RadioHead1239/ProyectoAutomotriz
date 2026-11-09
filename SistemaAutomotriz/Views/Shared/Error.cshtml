@@ -1,0 +1,19 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    var autenticado = User.Identity?.IsAuthenticated == true;
+    if (!autenticado) { Layout = "_LayoutAuth"; }
+}
+
+<section class="@(autenticado ? "card card-sin-padding" : "")">
+    <div class="estado @(autenticado ? "" : "estado-compacto")">
+        <span class="estado-icono error">@Html.Icono("alerta", 30)</span>
+        <h2 class="estado-titulo">Ocurrió un error al procesar tu solicitud</h2>
+        <p class="estado-texto">Intenta nuevamente en unos minutos. Si el problema continúa, comunícate con el Administrador.</p>
+        @if (Model.ShowRequestId)
+        {
+            <p class="ayuda">Código de seguimiento: <code>@Model.RequestId</code></p>
+        }
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primario">Volver al inicio</a>
+    </div>
+</section>

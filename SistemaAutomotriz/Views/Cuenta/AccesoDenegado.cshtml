@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Acceso denegado";
+    var autenticado = User.Identity?.IsAuthenticated == true;
+    if (!autenticado) { Layout = "_LayoutAuth"; }
+}
+
+@if (autenticado)
+{
+    <partial name="_EncabezadoPagina" model='new EncabezadoPaginaViewModel("Acceso denegado", "Error 403")' />
+}
+
+<section class="@(autenticado ? "card card-sin-padding" : "")">
+    <div class="estado @(autenticado ? "" : "estado-compacto")">
+        <span class="estado-icono error">@Html.Icono("candado", 30)</span>
+        <h2 class="estado-titulo">No tienes permiso para ver esta pantalla</h2>
+        @if (autenticado)
+        {
+            <p class="estado-texto">Tu rol (@User.ObtenerRolTexto()) no incluye esta sección. Si crees que es un error, pide acceso al Administrador.</p>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primario">Volver al panel</a>
+        }
+        else
+        {
+            <p class="estado-texto">Inicia sesión con una cuenta que tenga acceso a esta sección.</p>
+            <a asp-controller="Cuenta" asp-action="Login" class="btn btn-primario">Iniciar sesión</a>
+        }
+    </div>
+</section>

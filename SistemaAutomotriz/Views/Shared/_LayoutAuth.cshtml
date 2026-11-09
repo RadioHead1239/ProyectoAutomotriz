@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Taller Mecánico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="auth">
+        <div class="auth-panel">
+            <div class="auth-mensaje">
+                <h2 class="auth-titulo">Gestión integral de talleres.</h2>
+                <p class="auth-texto">Controla órdenes de trabajo, repuestos y transferencias entre sedes desde una sola plataforma. Consulta el stock del otro taller en tiempo real y reduce los tiempos de espera de cada vehículo.</p>
+            </div>
+        </div>
+
+        <div class="auth-contenido">
+            <div class="auth-tarjeta">
+                <div class="auth-tarjeta-cabecera">
+                    <h1 class="page-titulo">@ViewData["Title"]</h1>
+                    @if (ViewData["Subtitulo"] is string sub)
+                    {
+                        <p class="page-subtitulo">@sub</p>
+                    }
+                </div>
+                <partial name="_Alertas" />
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
