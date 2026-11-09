@@ -15,7 +15,8 @@ appsettings.*.local.json
 *.xls
 *.xlsx
 *.xlsm
-
+*.zip
+*.rar
 *.csv
 
 *.sql
